@@ -1,7 +1,11 @@
 import express, {Router, Request, Response} from "express";
+const cors = require("cors");
 const postRoute = require("./routes/postController");
 const app = express();
+import bodyParser from 'body-parser';
 
+app.use(cors())
+app.use(bodyParser.json());
 const port = 3000;
 
 app.get('/', (req: Request, res: Response) =>{

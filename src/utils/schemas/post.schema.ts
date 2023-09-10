@@ -1,15 +1,24 @@
 import {TypeOf, z} from "zod";
 
-type ContentType = "paragraph" | "image" | "code";
+type ContentType = {
+    type: string,
+    content: string
+};
 
-const ZodContentType = z.custom<{arg: ContentType}>();
+const ZodContentType = z.custom<ContentType>();
 
 const Post = z.object({
-    uuid: z.string(),
+    id: z.string(),
     title: z.string(),
     content: z.array(ZodContentType),
-    dateCreated: z.date(),
-    dateUpdated: z.date(),
+    created_at: z.date(),
+    updated_at: z.date(),
+});
+
+const PostInput = z.object({
+    title: z.string(),
+    content: z.array(ZodContentType)
 });
 
 export type PostSchema = TypeOf<typeof Post>;
+export type PostInputSchema = TypeOf<typeof PostInput>;
