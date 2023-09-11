@@ -1,21 +1,21 @@
 import {Router, Request, Response} from "express";
-import { postService } from "../services/post.service";
+import { userService } from "../services/user.service";
 
 const router = Router();
-const service = new postService();
+const service = new userService();
 
 router.get("/", async (req: Request, res: Response)=>{
     try {
-        const result = await service.getAllPosts();
+        const result = await service.getAllUsers();
         return res.status(200).json(result);
     } catch (error) {
         console.error(error);
     }
 })
 
-router.get("/:post_id", async (req: Request, res: Response) =>{
+router.get("/:user_id", async (req: Request, res: Response) =>{
     try {
-        const result = await service.getSinglePosts(Number(req.params["post_id"]));
+        const result = await service.getSingleUser(Number(req.params["user_id"]));
         console.log(result);
         return res.status(200).json(result);
     } catch (error) {
@@ -26,28 +26,28 @@ router.get("/:post_id", async (req: Request, res: Response) =>{
 router.post("/", async (req: Request, res: Response) =>{
     try {
         const data = req.body;
-        const result = await service.createPost(data);
+        const result = await service.createUser(data);
         return res.status(200).json(result);
     } catch (error) {
         console.error(error);
     }
 })
 
-router.patch("/:post_id", async (req: Request, res: Response)=>{
+router.patch("/:user_id", async (req: Request, res: Response)=>{
     try {
         const data = req.body;
-        const id = Number(req.params['post_id']);
-        const result = await service.updatePost(id, data);
+        const id = Number(req.params['user_id']);
+        const result = await service.updateUser(id, data);
         return res.status(200).json(result);
     } catch (error) {
         console.error(error);
     }
 })
 
-router.delete("/:post_id", async (req: Request, res: Response) =>{
+router.delete("/:user_id", async (req: Request, res: Response) =>{
     try {
-        const id = Number(req.params["post_id"]);
-        const result = await service.deletePost(id);
+        const id = Number(req.params["user_id"]);
+        const result = await service.deleteUser(id);
         return res.status(200).json(result);
     } catch (error) {
         

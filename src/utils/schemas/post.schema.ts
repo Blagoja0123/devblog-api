@@ -8,7 +8,7 @@ type ContentType = {
 const ZodContentType = z.custom<ContentType>();
 
 const Post = z.object({
-    id: z.string(),
+    id: z.number(),
     title: z.string(),
     content: z.array(ZodContentType),
     created_at: z.date(),
@@ -17,7 +17,8 @@ const Post = z.object({
 
 const PostInput = z.object({
     title: z.string(),
-    content: z.array(ZodContentType)
+    content: z.array(ZodContentType),
+    author: z.number(),
 });
 
 export type PostSchema = TypeOf<typeof Post>;
